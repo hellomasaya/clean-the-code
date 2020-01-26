@@ -19,14 +19,21 @@ public class Args {
 
   private void parseSchema(String schema) throws ArgsException {
     for (String element : schema.split(","))
-      if (element.length() > 0)
+      if (element.length() > 0){
         parseSchemaElement(element.trim());
+    }
   }
 
   private void parseSchemaElement(String element) throws ArgsException {
     char elementId = element.charAt(0);
     String elementTail = element.substring(1);
     validateSchemaElementId(elementId);
+    matchMarshaler(elementId, elementTail);
+  }
+
+  private void matchMarshaler(
+    char elementId, 
+    String elementTail) throws ArgsException {
     if (elementTail.length() == 0)
       marshalers.put(elementId, new BooleanArgumentMarshaler());
     else if (elementTail.equals("*"))
@@ -50,6 +57,7 @@ public class Args {
 
   private void parseArgumentStrings(List<String> argsList) throws ArgsException {
     for (currentArgument = argsList.listIterator(); currentArgument.hasNext();) {
+      // System.out.printf("curr%s\n", currentArgument.previous());
       String argString = currentArgument.next();
       if (argString.startsWith("-")) {
         parseArgumentCharacters(argString.substring(1));

@@ -1,6 +1,6 @@
 package com.cleancoder.args;
 
-public class ArgsMain {
+public class Arguments{
   public static void main(String[] args) {
     try {
       Args arg = new Args("l,p#,d*", args);
@@ -13,7 +13,10 @@ public class ArgsMain {
     }
   }
 
-  private static void executeApplication(boolean logging, int port, String directory) {
+  private static void executeApplication(
+    boolean logging, 
+    int port, 
+    String directory) {
     System.out.printf("logging is %s, port:%d, directory:%s\n",logging, port, directory);
   }
 }
