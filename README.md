@@ -38,7 +38,7 @@
 2. [Args.java](./src/com/cleancoder/args/Arguments.java):  
 
       a. Naming: *"A long descriptive name is better than a short enigmatic name. A long descriptive name is better than a long descriptive comment."*  
-      - Variable `schema` changed to `argSchema` for reflecting the 
+      - Variable `schema` changed to `argSchema` for reflecting the components of the schema.
       - Method `parseArgumentStrings` changed to `parseListofArguments` for better readability and to provide better and descriptive names.
       - Changed `elementTail` to `elementSymbol`.
       - Changed `argsList` to `listOfArgs` for better readability.
