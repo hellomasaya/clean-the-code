@@ -127,6 +127,14 @@ public class ArgsTest {
   }
 
   @Test
+  public void testSimpleNegativeIntPresent() throws Exception {
+    Args args = new Args("x#", new String[]{"-x", "-42"});
+    assertTrue(args.has('x'));
+    assertEquals(-42, args.getInt('x'));
+    assertEquals(2, args.nextArgument());
+  }
+
+  @Test
   public void testMissingInteger() throws Exception {
     try {
       new Args("x#", new String[]{"-x"});
