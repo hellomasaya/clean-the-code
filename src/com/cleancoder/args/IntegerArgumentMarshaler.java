@@ -12,9 +12,9 @@ public class IntegerArgumentMarshaler implements ArgumentMarshaler {
     try {
       argValue = currentArgument.next();
       intValue = Integer.parseInt(argValue);
-    } catch (NoSuchElementException err) {
+    } catch (NoSuchElementException exception) {
       throw new ArgsException(MISSING_INTEGER);
-    } catch (NumberFormatException err) {
+    } catch (NumberFormatException exception) {
       throw new ArgsException(INVALID_INTEGER, argValue);
     }
   }

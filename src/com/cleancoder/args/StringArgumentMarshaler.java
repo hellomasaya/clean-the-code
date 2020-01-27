@@ -11,7 +11,7 @@ public class StringArgumentMarshaler implements ArgumentMarshaler {
   public void set(Iterator<String> currentArgument) throws ArgsException {
     try {
       stringValue = currentArgument.next();
-    } catch (NoSuchElementException err) {
+    } catch (NoSuchElementException exception) {
       throw new ArgsException(MISSING_STRING);
     }
   }

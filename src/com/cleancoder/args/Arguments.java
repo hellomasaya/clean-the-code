@@ -8,8 +8,8 @@ public class Arguments{
       int port = arg.getInt('p');
       String directory = arg.getString('d');
       executeApplication(logging, port, directory);
-    } catch (ArgsException e) {
-      System.out.printf("Argument error: %s\n", e.errorMessage());
+    } catch (ArgsException exception) {
+      System.out.printf("Argument error: %s\n", exception.errorMessage());
     }
   }
 

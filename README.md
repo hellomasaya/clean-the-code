@@ -25,7 +25,9 @@
 
 1. [Arguments.java](./src/com/cleancoder/args/Arguments.java):
 
-      a. Naming: [OUT OF THE BOX] Class name `ArgsMain` has been changed to `Arguments` to avoid mental mapping and because *classes should have noun or noun phrase names* and to *avoid mental mapping*.
+      a. Naming: 
+      - [OUT OF THE BOX] Class name `ArgsMain` has been changed to `Arguments` to avoid mental mapping and because *classes should have noun or noun phrase names* and to *avoid mental mapping*.
+      - Changed `e` to `exception`
       
       b. Visual Design of Code: 
       - Unifying list of arguments i.e. arguments in separate lines
