@@ -11,7 +11,6 @@ public class DoubleArgumentMarshaler implements ArgumentMarshaler {
     String argValue = null;
     try {
       argValue = currentArgument.next();
-      System.out.printf("%s\n", argValue);
       doubleValue = Double.parseDouble(argValue);
     } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_DOUBLE);

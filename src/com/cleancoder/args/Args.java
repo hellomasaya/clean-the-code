@@ -35,8 +35,12 @@ public class Args {
   }
 
   private void validateSchemaElementId(char elementId) throws ArgsException {
-    if (!Character.isLetter(elementId))
+    if (isNotLetter(elementId))
       throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
+  }
+
+  private boolean isNotLetter(char elementId){
+    return !Character.isLetter(elementId);
   }
 
   private void putIntoMarshaler(String element) throws ArgsException {
