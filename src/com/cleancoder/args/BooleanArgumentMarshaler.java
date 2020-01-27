@@ -9,9 +9,9 @@ public class BooleanArgumentMarshaler implements ArgumentMarshaler {
     booleanValue = true;
   }
 
-  public static boolean getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof BooleanArgumentMarshaler)
-      return ((BooleanArgumentMarshaler) am).booleanValue;
+  public static boolean getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof BooleanArgumentMarshaler)
+      return ((BooleanArgumentMarshaler) argsMarshaler).booleanValue;
     else
       return false;
   }

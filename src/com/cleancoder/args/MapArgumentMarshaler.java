@@ -13,10 +13,9 @@ public class MapArgumentMarshaler implements ArgumentMarshaler {
   public void set(Iterator<String> currentArgument) throws ArgsException {
     try {
       String[] mapEntries = currentArgument.next().split(",");
-      for (String entry : mapEntries) {
+      for (String entry : mapEntries)
         parseEntry(entry);
-      }
-    } catch (NoSuchElementException e) {
+    } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_MAP);
     }
   }

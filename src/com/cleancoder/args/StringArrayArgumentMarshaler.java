@@ -10,14 +10,14 @@ public class StringArrayArgumentMarshaler implements ArgumentMarshaler {
   public void set(Iterator<String> currentArgument) throws ArgsException {
     try {
       strings.add(currentArgument.next());
-    } catch (NoSuchElementException e) {
+    } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_STRING);
     }
   }
 
-  public static String[] getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof StringArrayArgumentMarshaler)
-      return ((StringArrayArgumentMarshaler) am).strings.toArray(new String[0]);
+  public static String[] getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof StringArrayArgumentMarshaler)
+      return ((StringArrayArgumentMarshaler) argsMarshaler).strings.toArray(new String[0]);
     else
       return new String[0];
   }

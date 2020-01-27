@@ -8,20 +8,20 @@ public class IntegerArgumentMarshaler implements ArgumentMarshaler {
   private int intValue = 0;
 
   public void set(Iterator<String> currentArgument) throws ArgsException {
-    String parameter = null;
+    String argValue = null;
     try {
-      parameter = currentArgument.next();
-      intValue = Integer.parseInt(parameter);
-    } catch (NoSuchElementException e) {
+      argValue = currentArgument.next();
+      intValue = Integer.parseInt(argValue);
+    } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_INTEGER);
-    } catch (NumberFormatException e) {
-      throw new ArgsException(INVALID_INTEGER, parameter);
+    } catch (NumberFormatException err) {
+      throw new ArgsException(INVALID_INTEGER, argValue);
     }
   }
 
-  public static int getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof IntegerArgumentMarshaler)
-      return ((IntegerArgumentMarshaler) am).intValue;
+  public static int getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof IntegerArgumentMarshaler)
+      return ((IntegerArgumentMarshaler) argsMarshaler).intValue;
     else
       return 0;
   }

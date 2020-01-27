@@ -11,14 +11,14 @@ public class StringArgumentMarshaler implements ArgumentMarshaler {
   public void set(Iterator<String> currentArgument) throws ArgsException {
     try {
       stringValue = currentArgument.next();
-    } catch (NoSuchElementException e) {
+    } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_STRING);
     }
   }
 
-  public static String getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof StringArgumentMarshaler)
-      return ((StringArgumentMarshaler) am).stringValue;
+  public static String getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof StringArgumentMarshaler)
+      return ((StringArgumentMarshaler) argsMarshaler).stringValue;
     else
       return "";
   }

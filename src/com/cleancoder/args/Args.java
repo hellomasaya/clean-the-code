@@ -18,22 +18,18 @@ public class Args {
     argsFound = new HashSet<Character>();
 
     parseSchema();
-    parseArgumentList();
+    parseListofArguments();
   }
 
   private void parseSchema() throws ArgsException {
     for (String element : argSchema.split(","))
-      if (!isEmpty(element)){
+      if (!element.isBlank())
         parseSchemaElement(element.trim());
-    }
-  }
-
-  private boolean isEmpty(String element){
-    return element.length() == 0;
   }
 
   private void parseSchemaElement(String element) throws ArgsException {
-    char elementId = element.charAt(0);
+    int index = 0;
+    char elementId = element.charAt(index);
     validateSchemaElementId(elementId);
     putIntoMarshaler(element);
   }
@@ -44,28 +40,33 @@ public class Args {
   }
 
   private void putIntoMarshaler(String element) throws ArgsException {
-    char elementId = element.charAt(0);
-    String elementTail = element.substring(1);
+    int index = 0;
+    char elementId = element.charAt(index);                              
+    String elementSymbol = element.substring(1);
+    Map<String, ArgumentMarshaler> marshalersMappedToSymbols = matchMarshaler();
 
-    if (elementTail.length() == 0)
+    if (elementSymbol.isBlank())
       marshalers.put(elementId, new BooleanArgumentMarshaler());
-    else if (elementTail.equals("*"))
-      marshalers.put(elementId, new StringArgumentMarshaler());
-    else if (elementTail.equals("#"))
-      marshalers.put(elementId, new IntegerArgumentMarshaler());
-    else if (elementTail.equals("##"))
-      marshalers.put(elementId, new DoubleArgumentMarshaler());
-    else if (elementTail.equals("[*]"))
-      marshalers.put(elementId, new StringArrayArgumentMarshaler());
-    else if (elementTail.equals("&"))
-      marshalers.put(elementId, new MapArgumentMarshaler());
+    else if(marshalersMappedToSymbols.containsKey(elementSymbol))
+      marshalers.put(elementId, marshalersMappedToSymbols.get(elementSymbol));
     else
-      throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+      throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementSymbol);
   }
 
-  private void parseArgumentList() throws ArgsException {
+  private Map<String, ArgumentMarshaler> matchMarshaler(){
+    final Map<String, ArgumentMarshaler> marshalersMappedToSymbols = new HashMap<String, ArgumentMarshaler>(){{
+      put("#", new IntegerArgumentMarshaler());
+      put("##", new DoubleArgumentMarshaler());
+      put("*", new StringArgumentMarshaler());
+      put("[*]", new StringArrayArgumentMarshaler());
+      put("&", new MapArgumentMarshaler());
+    }};;
+    return marshalersMappedToSymbols;
+  }
+
+  private void parseListofArguments() throws ArgsException {
     for (currentArgument = listOfArgs.listIterator(); 
-        currentArgument.hasNext();) {      
+        currentArgument.hasNext();){      
       String argString = currentArgument.next();
       if (argString.startsWith("-")) {
         String elementId = argString.substring(1);
@@ -80,18 +81,17 @@ public class Args {
 
   private void parseArgumentCharacters(String argChars) throws ArgsException {
     for (int i = 0; i < argChars.length(); i++)
-      parseArgumentCharacter(argChars.charAt(i));
+      setMarshaler(argChars.charAt(i));
   }
 
-  private void parseArgumentCharacter(char argChar) throws ArgsException {
-    ArgumentMarshaler marshaler = marshalers.get(argChar);
-    if (marshaler == null) {
+  private void setMarshaler(char argChar) throws ArgsException {
+    ArgumentMarshaler matchedMarshaler = marshalers.get(argChar);
+    if (matchedMarshaler == null)
       throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
-    } 
     else {
       argsFound.add(argChar);
       try {
-        marshaler.set(currentArgument);
+        matchedMarshaler.set(currentArgument);
       } 
       catch (ArgsException err) {
         err.setErrorArgumentId(argChar);
@@ -100,8 +100,7 @@ public class Args {
     }
   }
 
-  // functions required in unit tests
-  public boolean hasArgument(char arg) {
+  public boolean hasFoundArgument(char arg) {
     return argsFound.contains(arg);
   }
 

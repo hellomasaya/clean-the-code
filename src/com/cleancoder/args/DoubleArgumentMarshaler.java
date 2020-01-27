@@ -8,20 +8,21 @@ public class DoubleArgumentMarshaler implements ArgumentMarshaler {
   private double doubleValue = 0;
 
   public void set(Iterator<String> currentArgument) throws ArgsException {
-    String parameter = null;
+    String argValue = null;
     try {
-      parameter = currentArgument.next();
-      doubleValue = Double.parseDouble(parameter);
-    } catch (NoSuchElementException e) {
+      argValue = currentArgument.next();
+      System.out.printf("%s\n", argValue);
+      doubleValue = Double.parseDouble(argValue);
+    } catch (NoSuchElementException err) {
       throw new ArgsException(MISSING_DOUBLE);
-    } catch (NumberFormatException e) {
-      throw new ArgsException(INVALID_DOUBLE, parameter);
+    } catch (NumberFormatException err) {
+      throw new ArgsException(INVALID_DOUBLE, argValue);
     }
   }
 
-  public static double getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof DoubleArgumentMarshaler)
-      return ((DoubleArgumentMarshaler) am).doubleValue;
+  public static double getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof DoubleArgumentMarshaler)
+      return ((DoubleArgumentMarshaler) argsMarshaler).doubleValue;
     else
       return 0.0;
   }
