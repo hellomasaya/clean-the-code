@@ -14,19 +14,27 @@ public class MapArgumentMarshaler implements ArgumentMarshaler {
     try {
       String[] mapEntries = currentArgument.next().split(",");
       for (String entry : mapEntries) {
-        String[] entryComponents = entry.split(":");
-        if (entryComponents.length != 2)
-          throw new ArgsException(MALFORMED_MAP);
-        map.put(entryComponents[0], entryComponents[1]);
+        parseEntry(entry);
       }
     } catch (NoSuchElementException e) {
       throw new ArgsException(MISSING_MAP);
     }
   }
 
-  public static Map<String, String> getValue(ArgumentMarshaler am) {
-    if (am != null && am instanceof MapArgumentMarshaler)
-      return ((MapArgumentMarshaler) am).map;
+  public void parseEntry(String entry) throws ArgsException{
+    String[] entryComponents = entry.split(":");
+    if (entryComponents.length != 2)
+      throw new ArgsException(MALFORMED_MAP);
+      putInMap(entryComponents);
+  }
+
+  public void putInMap(String[] entryComponents) throws ArgsException{
+    map.put(entryComponents[0], entryComponents[1]);
+  }
+
+  public static Map<String, String> getValue(ArgumentMarshaler argsMarshaler) {
+    if (argsMarshaler != null && argsMarshaler instanceof MapArgumentMarshaler)
+      return ((MapArgumentMarshaler) argsMarshaler).map;
     else
       return new HashMap<>();
   }
