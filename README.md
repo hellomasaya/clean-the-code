@@ -84,7 +84,7 @@
 
       a. Naming: 
       - Changed `am` to `argsMarshaler`
-      - Changed `e` to `err`
+      - Changed `e` to `exception`
 
       b. [OUT OF THE BOX] Functions must do exactly one thing: Divided method `set` into three methods `set`, `parseEntry` and `putInMap` where:
       - `set`: parses the list of entries
@@ -103,7 +103,7 @@
 
       a. Naming: 
       - Changed `am` to `argsMarshaler`
-      - Changed `e` to `err`
+      - Changed `e` to `exception`
 
       b. Visual Design of Code: 
       - Unifying list of arguments i.e. arguments in separate lines
@@ -117,7 +117,7 @@
 
       a. Naming:
       - Changed `am` to `argsMarshaler`
-      - Changed `e` to `err`
+      - Changed `e` to `exception`
       - Changed `parameter` to a more meningful and descriptive name `argValue` 
 
       b. Visual Design of Code: 
@@ -132,8 +132,9 @@
 ## Tests:
 
 - Corrected name of method `malFormedMapArgument()` to `malformedMapArgument()`
+- Corrected name of method `malFormedMapArgumentExcess()` to `malformedMapArgumentExcess()`
 - Corrected test corresponding to `malformedMapArgument()`
 - Added a test for negative numbers
-- Added a test discovering a multiple flag function i.e. -xy 2 2.3
+- Added a test discovering a multiple flag function i.e. -xy 7 3.6
 
 ---------------------------------

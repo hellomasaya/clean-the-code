@@ -228,7 +228,7 @@ public class ArgsTest {
   }
  
   @Test
-  public void malFormedMapArgumentExcess() throws Exception {
+  public void malformedMapArgumentExcess() throws Exception {
     try{
     Args args = new Args("f&", new String[] {"-f", "key1:val1,key2:value2:extra"});
     Map<String, String> map = args.getMap('f');
